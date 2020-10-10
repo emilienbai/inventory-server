@@ -12,8 +12,8 @@ export class ItemRouter implements IRouter {
         private readonly itemController: IItemController
     ) {
         this.router = express.Router();
-        this.router.post('/', itemController.create);
-        this.router.get('/:itemId', itemController.get);
+        this.router.post('/', itemController.create.bind(itemController));
+        this.router.get('/:itemId', itemController.get.bind(itemController));
     }
 
     getRoutes(): express.Router {
