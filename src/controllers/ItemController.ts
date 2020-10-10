@@ -24,10 +24,6 @@ export class ItemController implements IItemController {
         }
     }
 
-    async delete(req: Request, res: Response): Promise<Response> {
-        throw new Error('not Implemented')
-    }
-
     async get(req: Request, res: Response): Promise<Response> {
         const queryParams = req.body;
         const item = await Item.findOne({ name: queryParams.name });
@@ -35,13 +31,5 @@ export class ItemController implements IItemController {
             return res.status(404).send("Item does not exist");
         }
         return res.json(item);
-    }
-
-    async list(req: Request, res: Response): Promise<Response> {
-        throw new Error('not Implemented')
-    }
-
-    async update(req: Request, res: Response): Promise<Response> {
-        throw new Error('not Implemented')
     }
 }

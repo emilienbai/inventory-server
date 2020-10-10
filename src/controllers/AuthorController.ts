@@ -22,21 +22,4 @@ export class AuthorController implements IAuthorController {
             return res.status(400);
         }
     }
-
-    async delete(req: Request, res: Response): Promise<Response> {
-        throw new Error('not Implemented')
-    }
-
-    async get(req: Request, res: Response): Promise<Response> {
-        throw new Error('not Implemented')
-    }
-
-    async list(req: Request, res: Response): Promise<Response> {
-        throw new Error('not Implemented')
-    }
-
-    async update(req: Request, res: Response): Promise<Response> {
-        throw new Error('not Implemented')
-    }
-
 }
