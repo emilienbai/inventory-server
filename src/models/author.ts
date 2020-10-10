@@ -1,7 +1,10 @@
-import mongoose, {Schema, Document} from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose';
+import { UserDocument } from './user';
+
 export type AuthorDocument = Document & {
     name: string;
-}
+    creator: UserDocument;
+};
 
 const authorSchema = new Schema<AuthorDocument>({
     name: {
@@ -9,13 +12,13 @@ const authorSchema = new Schema<AuthorDocument>({
         required: true,
         unique: true
     },
-    creatorId: {
+    creator: {
         type: Schema.Types.ObjectId,
-        ref: "User",
+        ref: 'User',
         required: true
     }
-})
+});
 
-const Author = mongoose.model<AuthorDocument>('Author', authorSchema)
+const Author = mongoose.model<AuthorDocument>('Author', authorSchema);
 
 export default Author;

@@ -1,16 +1,20 @@
 import mongoose, { PassportLocalDocument, PassportLocalModel } from 'mongoose';
 import passportLocalMongoose from 'passport-local-mongoose';
+
 export type UserDocument = PassportLocalDocument & {
     id: string;
     username: string;
-}
-const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        unique: true,
-        required: true,
+};
+const userSchema = new mongoose.Schema(
+    {
+        username: {
+            type: String,
+            unique: true,
+            required: true
+        }
     },
-}, {timestamps: true});
+    { timestamps: true }
+);
 
 userSchema.plugin(passportLocalMongoose);
 

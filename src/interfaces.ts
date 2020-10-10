@@ -1,31 +1,31 @@
-import e, { NextFunction, Request, Response } from "express";
+import e, { NextFunction, Request, Response } from 'express';
 
 /* controllers */
 interface ICRUDController {
-  create(req: Request, res: Response, next?: NextFunction): Promise<Response>;
+    create(req: Request, res: Response, next?: NextFunction): Promise<Response>;
 
-  get(req: Request, res: Response, next?: NextFunction): Promise<Response>;
+    get(req: Request, res: Response, next?: NextFunction): Promise<Response>;
 
-  list(req: Request, res: Response, next?: NextFunction): Promise<Response>;
+    list(req: Request, res: Response, next?: NextFunction): Promise<Response>;
 
-  update(req: Request, res: Response, next?: NextFunction): Promise<Response>;
+    update(req: Request, res: Response, next?: NextFunction): Promise<Response>;
 
-  delete(req: Request, res: Response, next?: NextFunction): Promise<Response>;
+    delete(req: Request, res: Response, next?: NextFunction): Promise<Response>;
 }
 
-export type IAuthorController = Pick<ICRUDController, "create">;
+export type IAuthorController = Pick<ICRUDController, 'create'>;
 
-export type IItemController = Pick<ICRUDController, "create" | "get">;
+export type IItemController = Pick<ICRUDController, 'create' | 'get'>;
 
 export interface IAuthController {
-  login(req: Request, res: Response): Promise<Response>;
+    login(req: Request, res: Response): Promise<Response>;
 
-  logout(req: Request, res: Response): Promise<Response>;
+    logout(req: Request, res: Response): Promise<Response>;
 
-  isLoggedIn(req: Request, res: Response, next: NextFunction): Promise<void>;
+    isLoggedIn(req: Request, res: Response, next: NextFunction): Promise<void>;
 }
 
 /* Routers */
 export interface IRouter {
-  getRoutes(): e.Router;
+    getRoutes(): e.Router;
 }

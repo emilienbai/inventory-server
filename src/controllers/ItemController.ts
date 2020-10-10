@@ -1,12 +1,11 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
 import { injectable } from 'inversify';
 import { IItemController } from '../interfaces';
 import Item from '../models/item';
 
 @injectable()
 export class ItemController implements IItemController {
-    constructor() {
-    }
+    constructor() {}
 
     async create(req: Request, res: Response): Promise<Response> {
         try {
@@ -28,7 +27,7 @@ export class ItemController implements IItemController {
         const queryParams = req.body;
         const item = await Item.findOne({ name: queryParams.name });
         if (!item) {
-            return res.status(404).send("Item does not exist");
+            return res.status(404).send('Item does not exist');
         }
         return res.json(item);
     }
