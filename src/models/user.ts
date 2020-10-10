@@ -1,7 +1,8 @@
 import mongoose, { PassportLocalDocument, PassportLocalModel } from 'mongoose';
 import passportLocalMongoose from 'passport-local-mongoose';
 export type UserDocument = PassportLocalDocument & {
-    userName: string;
+    id: string;
+    username: string;
 }
 const userSchema = new mongoose.Schema({
     username: {
@@ -9,7 +10,7 @@ const userSchema = new mongoose.Schema({
         unique: true,
         required: true,
     },
-});
+}, {timestamps: true});
 
 userSchema.plugin(passportLocalMongoose);
 

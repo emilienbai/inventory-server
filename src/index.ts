@@ -3,8 +3,9 @@ import dotenv from "dotenv";
 import express from "express";
 import passport from "passport";
 import passportLocal from "passport-local";
-import models, { connectDb } from "./models";
+import { connectDb } from "./models";
 import { createUserIfNoUsers } from "./models/seeds/userSeed";
+import User from './models/user';
 import router from "./routes";
 
 dotenv.config();
@@ -27,9 +28,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new LocalStrategy(models.User.authenticate()));
-passport.serializeUser(models.User.serializeUser());
-passport.deserializeUser(models.User.deserializeUser());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // parse application/json
 app.use(bodyParser.json());
