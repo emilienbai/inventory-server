@@ -36,7 +36,7 @@ export function initializePassport(passport: passport.PassportStatic, auth: type
                         message: 'That username is already taken'
                     });
                 } else {
-                    const salt = bCrypt.genSaltSync(16);
+                    const salt = bCrypt.genSaltSync(8);
                     const hash = bCrypt.hashSync(password, salt);
                     let data = {
                         username,
