@@ -1,0 +1,10 @@
+{
+    "database": "inventory-server",
+    "username": null,
+    "password": null,
+    "params": {
+        "host": "localhost",
+        "dialect": "postgres",
+        "operatorsAliases": false
+    }
+}

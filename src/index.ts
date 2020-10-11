@@ -2,20 +2,18 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import express from 'express';
 import passport from 'passport';
-import passportLocal from 'passport-local';
+
+import { initializePassport } from './config/passport/passport';
 import { IRouter } from './interfaces';
 import { myContainer } from './inversify.config';
-import { connectDb } from './models';
-import { createUserIfNoUsers } from './models/seeds/userSeed';
-import User from './models/user';
+import { createModels } from './models';
+import { User } from './models/User';
 import { TYPES } from './types';
 
 dotenv.config();
 declare const process: NodeJS.Process;
 
 const session = require('express-session');
-
-const LocalStrategy = passportLocal.Strategy;
 
 const app = express();
 
@@ -29,10 +27,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+initializePassport(passport, User);
 
 // parse application/json
 app.use(bodyParser.json());
@@ -41,10 +36,10 @@ const indexRouter = myContainer.get<IRouter>(TYPES.IIndexRouter);
 app.use('/api', indexRouter.getRoutes());
 
 const port = process.env.port ? parseInt(process.env.PORT as string) : 5000;
-connectDb().then(async () => {
-    await createUserIfNoUsers();
-
+const db = createModels();
+(async () => {
+    await db.sequelize.sync();
     app.listen(port, () => {
         console.log(`Example app listening on port ${port}`);
     });
-});
+})();

@@ -5,9 +5,9 @@ import { TYPES } from '../types';
 
 @injectable()
 export class ItemRouter implements IRouter {
-    private router: express.Router;
+    private readonly router: express.Router;
 
-    constructor(
+    public constructor(
         @inject(TYPES.IItemController)
         private readonly itemController: IItemController
     ) {
@@ -16,7 +16,7 @@ export class ItemRouter implements IRouter {
         this.router.get('/:itemId', itemController.get.bind(itemController));
     }
 
-    getRoutes(): express.Router {
+    public getRoutes(): express.Router {
         return this.router;
     }
 }

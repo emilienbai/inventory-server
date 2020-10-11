@@ -18,6 +18,8 @@ export type IAuthorController = Pick<ICRUDController, 'create'>;
 export type IItemController = Pick<ICRUDController, 'create' | 'get'>;
 
 export interface IAuthController {
+    signup(req: Request, res: Response): Promise<Response>;
+
     login(req: Request, res: Response): Promise<Response>;
 
     logout(req: Request, res: Response): Promise<Response>;

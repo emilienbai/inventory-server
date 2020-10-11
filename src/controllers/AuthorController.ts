@@ -1,18 +1,18 @@
 import { Request, Response } from 'express';
 import { injectable } from 'inversify';
 import { IAuthorController } from '../interfaces';
-import Author from '../models/author';
+import { Author } from '../models/Author';
 
 @injectable()
 export class AuthorController implements IAuthorController {
-    constructor() {}
+    public constructor() {}
 
-    async create(req: Request, res: Response): Promise<Response> {
+    public async create(req: Request, res: Response): Promise<Response> {
         try {
             const { name } = req.body;
             let author = new Author({
                 name,
-                creator: req.loggedInUser.id
+                creatorId: req.loggedInUser.id
             });
 
             author = await author.save();

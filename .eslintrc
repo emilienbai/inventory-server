@@ -20,6 +20,7 @@
     "@typescript-eslint/no-use-before-define": 0,
     "@typescript-eslint/no-var-requires": 0,
     "prefer-const": 0,
-    "comma-dangle": 1
+    "comma-dangle": 1,
+    "@typescript-eslint/explicit-member-accessibility": 2
   }
 }

@@ -5,14 +5,14 @@ import { TYPES } from '../types';
 
 @injectable()
 export class AuthorRouter implements IRouter {
-    protected router: express.Router;
+    private readonly router: express.Router;
 
-    constructor(@inject(TYPES.IAuthorController) private readonly authorController: IAuthorController) {
+    public constructor(@inject(TYPES.IAuthorController) private readonly authorController: IAuthorController) {
         this.router = express.Router();
         this.router.post('/', authorController.create);
     }
 
-    getRoutes(): express.Router {
+    public getRoutes(): express.Router {
         return this.router;
     }
 }

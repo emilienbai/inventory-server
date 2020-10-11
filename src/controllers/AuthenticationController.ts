@@ -2,16 +2,37 @@ import { NextFunction, Request, Response } from 'express';
 import { injectable } from 'inversify';
 import 'reflect-metadata';
 import { IAuthController } from '../interfaces';
-import User, { UserDocument } from '../models/user';
+import { User } from '../models/User';
 
 @injectable()
 export class AuthenticationController implements IAuthController {
-    constructor() {}
+    public constructor() {}
 
-    async login(req: Request, res: Response): Promise<Response> {
+    public async signup(req: Request, res: Response): Promise<Response> {
         try {
             await User.findOne({
-                username: req.body.username
+                where: {
+                    username: req.body.username
+                }
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(403).send();
+        }
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        return res.json({
+            success: true,
+            status: 'You are successfully registered!'
+        });
+    }
+
+    public async login(req: Request, res: Response): Promise<Response> {
+        try {
+            await User.findOne({
+                where: {
+                    username: req.body.username
+                }
             });
         } catch (error) {
             console.error(error);
@@ -25,7 +46,7 @@ export class AuthenticationController implements IAuthController {
         });
     }
 
-    async logout(req: Request & { session: any }, res: Response): Promise<Response> {
+    public async logout(req: Request & { session: any }, res: Response): Promise<Response> {
         if (req.session) {
             req.logout();
             return req.session.destroy((err: any) => {
@@ -42,11 +63,13 @@ export class AuthenticationController implements IAuthController {
         return res.status(403).send('You are not logged in!');
     }
 
-    async isLoggedIn(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async isLoggedIn(req: Request, res: Response, next: NextFunction): Promise<void> {
         if (req.isAuthenticated()) {
             req.loggedInUser = (await User.findOne({
-                username: (req.user as any).username
-            })) as UserDocument;
+                where: {
+                    username: (req.user as any).username
+                }
+            })) as User;
             return next();
         }
         res.status(403).send('Not logged in');

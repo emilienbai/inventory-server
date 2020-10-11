@@ -8,7 +8,7 @@ import { TYPES } from '../types';
 export class IndexRouter implements IRouter {
     private readonly router: express.Router;
 
-    constructor(
+    public constructor(
         @inject(TYPES.IAuthController)
         private readonly authController: IAuthController,
         @inject(TYPES.IItemRouter) private readonly itemRouter: IRouter,
@@ -16,14 +16,15 @@ export class IndexRouter implements IRouter {
     ) {
         this.router = express.Router();
 
-        this.router.post('/login', passport.authenticate('local'), this.authController.login);
+        this.router.post('/signup', passport.authenticate('local-signup'), this.authController.signup);
+        this.router.post('/login', passport.authenticate('local-signin'), this.authController.login);
         this.router.get('/logout', this.authController.logout);
 
         this.router.use('/items', authController.isLoggedIn, this.itemRouter.getRoutes());
         this.router.use('/authors', authController.isLoggedIn, this.authorRouter.getRoutes());
     }
 
-    getRoutes(): express.Router {
+    public getRoutes(): express.Router {
         return this.router;
     }
 }
