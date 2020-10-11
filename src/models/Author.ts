@@ -1,4 +1,5 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import { DbInterface } from '../@types/DbInterface';
 import { SequelizeAttributes } from '../@types/SequelizeAttributes';
 
 export interface AuthorAttributes {
@@ -36,5 +37,13 @@ export const AuthorFactory = (sequelize: Sequelize): Model<Author, AuthorAttribu
         }
     };
 
-    return Author.init(attributes, { tableName: 'authors', sequelize });
+    const author = Author.init(attributes, { tableName: 'authors', sequelize });
+
+    // @ts-ignore
+    author.associate = (models: DbInterface) => {
+        // @ts-ignore
+        Author.belongsTo(models.User, { foreignKey: 'creatorId', as: 'creator' });
+    };
+
+    return author;
 };

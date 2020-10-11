@@ -17,11 +17,13 @@ export const createModels = (): DbInterface => {
         User: UserFactory(sequelize)
     };
 
-    // Object.keys(db).forEach((modelName) => {
-    //     if (db[modelName].associate) {
-    //         db[modelName].associate(db);
-    //     }
-    // });
+    Object.keys(db).forEach((modelName: string) => {
+        // @ts-ignore
+        const model = db[modelName] as any;
+        if (model.associate) {
+            model.associate(db);
+        }
+    });
 
     return db;
 };

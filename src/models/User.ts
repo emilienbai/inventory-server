@@ -1,5 +1,5 @@
-import { VerifyFunction } from 'passport-local';
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import { DbInterface } from '../@types/DbInterface';
 import { SequelizeAttributes } from '../@types/SequelizeAttributes';
 
 export interface UserAttributes {
@@ -42,5 +42,16 @@ export const UserFactory = (sequelize: Sequelize): Model<User, UserAttributes> =
             type: DataTypes.TEXT
         }
     };
-    return User.init(attributes, { tableName: 'users', sequelize });
+    const user = User.init(attributes, { tableName: 'users', sequelize });
+    // @ts-ignore
+    user.associate = (models: DbInterface) => {
+        // @ts-ignore
+        User.hasMany(models.Author, {
+            sourceKey: 'id',
+            foreignKey: 'authorId',
+            as: 'authors'
+        });
+    };
+
+    return user;
 };
