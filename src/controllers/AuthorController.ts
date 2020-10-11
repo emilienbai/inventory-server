@@ -18,7 +18,7 @@ export class AuthorController implements IAuthorController {
             author = await author.save();
             return res.json(author);
         } catch (error) {
-            return res.status(400);
+            return res.status(400).send(error.message);
         }
     }
 }
