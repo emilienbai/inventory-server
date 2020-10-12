@@ -1,6 +1,7 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
-import { DbInterface } from '../@types/DbInterface';
+import { AssociableModel } from '../@types/DbInterface';
 import { SequelizeAttributes } from '../@types/SequelizeAttributes';
+import { User } from './User';
 
 export interface AuthorAttributes {
     id?: number;
@@ -22,7 +23,7 @@ export class Author extends Model<AuthorAttributes, AuthorCreationAttributes> im
     public readonly updatedAt!: Date;
 }
 
-export const AuthorFactory = (sequelize: Sequelize): Model<Author, AuthorAttributes> => {
+export const AuthorFactory = (sequelize: Sequelize): AssociableModel<Author, AuthorAttributes> => {
     const attributes: SequelizeAttributes<AuthorAttributes> = {
         id: {
             type: DataTypes.INTEGER,
@@ -37,12 +38,13 @@ export const AuthorFactory = (sequelize: Sequelize): Model<Author, AuthorAttribu
         }
     };
 
-    const author = Author.init(attributes, { tableName: 'authors', sequelize });
+    const author = Author.init(attributes, {
+        tableName: 'authors',
+        sequelize
+    }) as AssociableModel<Author, AuthorAttributes>;
 
-    // @ts-ignore
-    author.associate = (models: DbInterface) => {
-        // @ts-ignore
-        Author.belongsTo(models.User, { foreignKey: 'creatorId', as: 'creator' });
+    author.associate = () => {
+        Author.belongsTo(User, { foreignKey: 'creatorId', as: 'creator' });
     };
 
     return author;

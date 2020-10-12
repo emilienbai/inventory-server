@@ -4,6 +4,8 @@ import { AuthorFactory } from './Author';
 import { ItemFactory } from './Item';
 import { UserFactory } from './User';
 
+const ModelNames = ['Author', 'Item', 'User' ];
+
 export const createModels = (): DbInterface => {
     const sequelizeConfig = require('../config/sequelize/sequelizeConfig.json');
     const { database, username, password, params } = sequelizeConfig;
@@ -21,7 +23,7 @@ export const createModels = (): DbInterface => {
         // @ts-ignore
         const model = db[modelName] as any;
         if (model.associate) {
-            model.associate(db);
+            model.associate();
         }
     });
 

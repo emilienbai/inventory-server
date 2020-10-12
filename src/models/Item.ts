@@ -1,4 +1,5 @@
 import { BuildOptions, DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import { AssociableModel } from '../@types/DbInterface';
 import { SequelizeAttributes } from '../@types/SequelizeAttributes';
 
 export interface ItemAttributes {
@@ -31,7 +32,7 @@ export class Item extends Model<ItemAttributes, ItemCreationAttributes> implemen
     public readonly updatedAt?: Date;
 }
 
-export const ItemFactory = (sequelize: Sequelize): Model<Item, ItemAttributes> => {
+export const ItemFactory = (sequelize: Sequelize): AssociableModel<Item, ItemAttributes> => {
     const attributes: SequelizeAttributes<ItemAttributes> = {
         id: {
             type: DataTypes.INTEGER,
@@ -60,5 +61,5 @@ export const ItemFactory = (sequelize: Sequelize): Model<Item, ItemAttributes> =
         }
     };
 
-    return Item.init(attributes, { tableName: 'items', sequelize });
+    return Item.init(attributes, { tableName: 'items', sequelize }) as AssociableModel<Item, ItemAttributes>;
 };

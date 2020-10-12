@@ -1,6 +1,7 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
-import { DbInterface } from '../@types/DbInterface';
+import { AssociableModel } from '../@types/DbInterface';
 import { SequelizeAttributes } from '../@types/SequelizeAttributes';
+import { Author } from './Author';
 
 export interface UserAttributes {
     id?: number;
@@ -25,7 +26,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
     public readonly updatedAt!: Date;
 }
 
-export const UserFactory = (sequelize: Sequelize): Model<User, UserAttributes> => {
+export const UserFactory = (sequelize: Sequelize): AssociableModel<User, UserAttributes> => {
     const attributes: SequelizeAttributes<UserAttributes> = {
         id: {
             type: DataTypes.INTEGER,
@@ -42,13 +43,11 @@ export const UserFactory = (sequelize: Sequelize): Model<User, UserAttributes> =
             type: DataTypes.TEXT
         }
     };
-    const user = User.init(attributes, { tableName: 'users', sequelize });
-    // @ts-ignore
-    user.associate = (models: DbInterface) => {
-        // @ts-ignore
-        User.hasMany(models.Author, {
+    const user = User.init(attributes, { tableName: 'users', sequelize }) as AssociableModel<User, UserAttributes>;
+    user.associate = () => {
+        User.hasMany(Author, {
             sourceKey: 'id',
-            foreignKey: 'authorId',
+            foreignKey: 'creatorId',
             as: 'authors'
         });
     };
