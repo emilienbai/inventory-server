@@ -25,7 +25,7 @@ export function initializePassport(passport: passport.PassportStatic, auth: type
                 // let generateHash = function (password) {
                 //     return bCrypt.hashSync(password, , null);
                 // };
-                const user = await Auth.findOne({
+                const user = await Auth.scope('login').findOne({
                     where: {
                         username: username
                     }
@@ -73,7 +73,7 @@ export function initializePassport(passport: passport.PassportStatic, auth: type
                     return user.hash === bCrypt.hashSync(password, user.salt);
                 };
                 try {
-                    const user = await Auth.findOne({
+                    const user = await Auth.scope('login').findOne({
                         where: { username }
                     });
                     if (!user) {

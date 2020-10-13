@@ -13,8 +13,8 @@ export class ItemController implements IItemController {
             let item = Item.build({
                 name,
                 type,
-                authorId: authorId,
-                creatorId: 12
+                authorId: req.loggedInUser.id,
+                creatorId: authorId
             });
             await item.save({ logging: console.log });
             return res.json(item);

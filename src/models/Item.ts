@@ -1,6 +1,8 @@
-import { BuildOptions, DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
 import { AssociableModel } from '../@types/DbInterface';
 import { SequelizeAttributes } from '../@types/SequelizeAttributes';
+import { Author } from './Author';
+import { User } from './User';
 
 export interface ItemAttributes {
     id?: number;
@@ -30,6 +32,9 @@ export class Item extends Model<ItemAttributes, ItemCreationAttributes> implemen
     // timestamps!
     public createdAt?: Date;
     public readonly updatedAt?: Date;
+
+    public readonly creator?: User | null;
+    public readonly author?: Author | null;
 }
 
 export const ItemFactory = (sequelize: Sequelize): AssociableModel<Item, ItemAttributes> => {
@@ -61,5 +66,12 @@ export const ItemFactory = (sequelize: Sequelize): AssociableModel<Item, ItemAtt
         }
     };
 
-    return Item.init(attributes, { tableName: 'items', sequelize }) as AssociableModel<Item, ItemAttributes>;
+    const item = Item.init(attributes, { tableName: 'items', sequelize }) as AssociableModel<Item, ItemAttributes>;
+
+    item.associate = () => {
+        Item.belongsTo(User, { foreignKey: 'creatorId', as: 'creator' });
+        Item.belongsTo(Author, { foreignKey: 'authorId', as: 'author' });
+    };
+
+    return item;
 };

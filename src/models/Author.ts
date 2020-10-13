@@ -1,6 +1,7 @@
-import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import { DataTypes, HasManyGetAssociationsMixin, Model, Optional, Sequelize } from 'sequelize';
 import { AssociableModel } from '../@types/DbInterface';
 import { SequelizeAttributes } from '../@types/SequelizeAttributes';
+import { Item } from './Item';
 import { User } from './User';
 
 export interface AuthorAttributes {
@@ -21,6 +22,11 @@ export class Author extends Model<AuthorAttributes, AuthorCreationAttributes> im
     // timestamps!
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
+
+    public getItems!: HasManyGetAssociationsMixin<Item>;
+
+    public readonly creator?: User | null;
+    public readonly items?: Item[] | null;
 }
 
 export const AuthorFactory = (sequelize: Sequelize): AssociableModel<Author, AuthorAttributes> => {
@@ -45,6 +51,7 @@ export const AuthorFactory = (sequelize: Sequelize): AssociableModel<Author, Aut
 
     author.associate = () => {
         Author.belongsTo(User, { foreignKey: 'creatorId', as: 'creator' });
+        Author.hasMany(Item, { sourceKey: 'id', foreignKey: 'authorId', as: 'items' });
     };
 
     return author;

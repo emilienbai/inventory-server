@@ -2,6 +2,7 @@ import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
 import { AssociableModel } from '../@types/DbInterface';
 import { SequelizeAttributes } from '../@types/SequelizeAttributes';
 import { Author } from './Author';
+import { Item } from './Item';
 
 export interface UserAttributes {
     id?: number;
@@ -24,6 +25,14 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
     // timestamps!
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
+
+    public readonly authors?: Author[] | null;
+    public readonly items?: Item[] | null;
+
+    public toJSON(): any {
+        const { salt, hash, ...cleanedUser } = this.get();
+        return cleanedUser;
+    }
 }
 
 export const UserFactory = (sequelize: Sequelize): AssociableModel<User, UserAttributes> => {
@@ -43,12 +52,33 @@ export const UserFactory = (sequelize: Sequelize): AssociableModel<User, UserAtt
             type: DataTypes.TEXT
         }
     };
-    const user = User.init(attributes, { tableName: 'users', sequelize }) as AssociableModel<User, UserAttributes>;
+    const defaultScope = {
+        attributes: ['id', 'username', 'createdAt', 'updatedAt']
+    };
+
+    const scopes = {
+        login: {
+            attributes: ['id', 'username', 'salt', 'hash']
+        }
+    };
+
+    const user = User.init(attributes, {
+        tableName: 'users',
+        sequelize,
+        defaultScope,
+        scopes
+    }) as AssociableModel<User, UserAttributes>;
     user.associate = () => {
         User.hasMany(Author, {
             sourceKey: 'id',
             foreignKey: 'creatorId',
             as: 'authors'
+        });
+
+        User.hasMany(Item, {
+            sourceKey: 'id',
+            foreignKey: 'creatorId',
+            as: 'items'
         });
     };
 
