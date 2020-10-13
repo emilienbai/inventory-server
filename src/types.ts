@@ -5,7 +5,9 @@ const TYPES = {
 
     IIndexRouter: Symbol.for('IndexRouter'),
     IAuthorRouter: Symbol.for('AuthorRouter'),
-    IItemRouter: Symbol.for('ItemRouter')
+    IItemRouter: Symbol.for('ItemRouter'),
+
+    IUtilities: Symbol.for('IUtilities')
 };
 
 export { TYPES };

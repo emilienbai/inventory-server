@@ -1,12 +1,14 @@
 import { Request, Response } from 'express';
-import { injectable } from 'inversify';
-import { IAuthorController } from '../interfaces';
+import { inject, injectable } from 'inversify';
+import { IAuthorController, IUtilities } from '../interfaces';
 import { Author } from '../models/Author';
 import { User } from '../models/User';
+import { QueryParametersParsingError } from '../services/Utilities';
+import { TYPES } from '../types';
 
 @injectable()
 export class AuthorController implements IAuthorController {
-    public constructor() {}
+    public constructor(@inject(TYPES.IUtilities) private readonly utilities: IUtilities) {}
 
     public async create(req: Request, res: Response): Promise<Response> {
         try {
@@ -37,7 +39,20 @@ export class AuthorController implements IAuthorController {
     }
 
     public async list(req: Request, res: Response): Promise<Response> {
-        const authors = await Author.findAll({ where: { creatorId: req.loggedInUser.id }, order: ['name'] });
-        return res.status(200).send(authors);
+        try {
+            const options = this.utilities.parseQueryParameters<Author>(req.query, Author);
+
+            const authors = await Author.findAll({
+                where: { creatorId: req.loggedInUser.id },
+                order: ['name'],
+                ...options
+            });
+            return res.status(200).send(authors);
+        } catch (error: unknown) {
+            if (error instanceof QueryParametersParsingError) {
+                return res.status(400).send(error.message);
+            }
+            return res.status(500).send();
+        }
     }
 }

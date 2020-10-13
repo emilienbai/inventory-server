@@ -1,4 +1,5 @@
 import e, { NextFunction, Request, Response } from 'express';
+import { FindOptions, Model } from 'sequelize';
 
 /* controllers */
 interface ICRUDController {
@@ -30,4 +31,9 @@ export interface IAuthController {
 /* Routers */
 export interface IRouter {
     getRoutes(): e.Router;
+}
+
+/* Service */
+export interface IUtilities {
+    parseQueryParameters<T extends Model>(query: any, model: any): FindOptions<T>;
 }
