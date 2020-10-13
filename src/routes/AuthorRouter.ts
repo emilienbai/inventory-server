@@ -9,9 +9,9 @@ export class AuthorRouter implements IRouter {
 
     public constructor(@inject(TYPES.IAuthorController) private readonly authorController: IAuthorController) {
         this.router = express.Router();
-        this.router.post('/', authorController.create);
-        this.router.get('/', authorController.list);
-        this.router.get('/:authorId', authorController.get);
+        this.router.post('', this.authorController.create.bind(this.authorController));
+        this.router.get('', this.authorController.list.bind(this.authorController));
+        this.router.get('/:authorId', this.authorController.get.bind(this.authorController));
     }
 
     public getRoutes(): express.Router {
