@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { FindOptions, Model } from 'sequelize';
+import { FindOptions, Model, WhereOptions } from 'sequelize';
 import { OrderItem } from 'sequelize/types/lib/model';
 import { IUtilities } from '../interfaces';
 
@@ -17,8 +17,18 @@ export class Utilities implements IUtilities {
         const order = this.parseOrderBy(query, m);
         if (order) options.order = order;
         delete query.order_by;
-
         return options;
+    }
+
+    public parseFilterOptions<T>(query: any, model: typeof Model): WhereOptions<T> {
+        const objectAttributes = Object.keys(model.rawAttributes);
+        const whereOptions: { [attribute: string]: any } = {};
+        for (const attribute of objectAttributes) {
+            if (attribute in query) {
+                whereOptions[attribute] = query[attribute];
+            }
+        }
+        return whereOptions as WhereOptions<T>;
     }
 
     private parsePositiveIntegerOrThrow(data: any, key: string, defaultValue = 0): number {

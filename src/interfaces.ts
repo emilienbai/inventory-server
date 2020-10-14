@@ -1,5 +1,5 @@
 import e, { NextFunction, Request, Response } from 'express';
-import { FindOptions, Model } from 'sequelize';
+import { FindOptions, Model, WhereOptions } from 'sequelize';
 
 /* controllers */
 interface ICRUDController {
@@ -36,4 +36,6 @@ export interface IRouter {
 /* Service */
 export interface IUtilities {
     parseQueryParameters<T extends Model>(query: any, model: any): FindOptions<T>;
+
+    parseFilterOptions<T extends Model>(query: any, model: any): WhereOptions<T>;
 }

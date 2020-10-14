@@ -41,9 +41,9 @@ export class AuthorController implements IAuthorController {
     public async list(req: Request, res: Response): Promise<Response> {
         try {
             const options = this.utilities.parseQueryParameters<Author>(req.query, Author);
-
+            const whereOptions = this.utilities.parseFilterOptions<Author>(req.query, Author);
             const authors = await Author.findAll({
-                where: { creatorId: req.loggedInUser.id },
+                where: { ...whereOptions, creatorId: req.loggedInUser.id },
                 order: ['name'],
                 ...options
             });
