@@ -43,7 +43,8 @@ export const UserFactory = (sequelize: Sequelize): AssociableModel<User, UserAtt
             primaryKey: true
         },
         username: {
-            type: DataTypes.TEXT
+            type: DataTypes.TEXT,
+            unique: true
         },
         hash: {
             type: DataTypes.TEXT

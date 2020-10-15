@@ -43,10 +43,12 @@ export const AuthorFactory = (sequelize: Sequelize): AssociableModel<Author, Aut
             primaryKey: true
         },
         name: {
-            type: DataTypes.TEXT
+            type: DataTypes.TEXT,
+            unique: { name: 'UniqueAuthorByCreator', msg: 'An author with this name already exists' }
         },
         creatorId: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            unique: 'UniqueAuthorByCreator'
         }
     };
 
@@ -56,8 +58,8 @@ export const AuthorFactory = (sequelize: Sequelize): AssociableModel<Author, Aut
     }) as AssociableModel<Author, AuthorAttributes>;
 
     author.associate = () => {
-        Author.belongsTo(User, { foreignKey: 'creatorId', as: 'creator' });
-        Author.hasMany(Item, { sourceKey: 'id', foreignKey: 'authorId', as: 'items' });
+        Author.belongsTo(User, { foreignKey: 'creatorId', as: 'creator', onDelete: 'CASCADE' });
+        Author.hasMany(Item, { sourceKey: 'id', foreignKey: 'authorId', as: 'items', onDelete: 'SET NULL' });
     };
 
     return author;

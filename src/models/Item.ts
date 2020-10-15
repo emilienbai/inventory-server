@@ -45,10 +45,12 @@ export const ItemFactory = (sequelize: Sequelize): AssociableModel<Item, ItemAtt
             primaryKey: true
         },
         name: {
-            type: DataTypes.TEXT
+            type: DataTypes.TEXT,
+            unique: { name: 'UniqueItemByCreatorAndType', msg: 'An item with this name and type already exists' }
         },
         type: {
-            type: DataTypes.ENUM('book', 'cd', 'dvd')
+            type: DataTypes.ENUM('book', 'cd', 'dvd'),
+            unique: 'UniqueItemByCreatorAndType'
         },
         year: {
             type: DataTypes.INTEGER,
@@ -62,15 +64,16 @@ export const ItemFactory = (sequelize: Sequelize): AssociableModel<Item, ItemAtt
             type: DataTypes.INTEGER
         },
         creatorId: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            unique: 'UniqueItemByCreatorAndType'
         }
     };
 
     const item = Item.init(attributes, { tableName: 'items', sequelize }) as AssociableModel<Item, ItemAttributes>;
 
     item.associate = () => {
-        Item.belongsTo(User, { foreignKey: 'creatorId', as: 'creator' });
-        Item.belongsTo(Author, { foreignKey: 'authorId', as: 'author' });
+        Item.belongsTo(User, { foreignKey: 'creatorId', as: 'creator', onDelete: 'CASCADE' });
+        Item.belongsTo(Author, { foreignKey: 'authorId', as: 'author', onDelete: 'SET NULL' });
     };
 
     return item;
