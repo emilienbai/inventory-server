@@ -30,6 +30,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
     public readonly items?: Item[] | null;
 
     public toJSON(): any {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { salt, hash, ...cleanedUser } = this.get();
         return cleanedUser;
     }

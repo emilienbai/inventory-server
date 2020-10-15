@@ -11,7 +11,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "typeRoots": [
-      "src/@types", "./node_modules/@types"],
+      "src/server/@types", "./node_modules/@types"],
     "types": ["reflect-metadata"],
     "moduleResolution": "node",
     "experimentalDecorators": true,

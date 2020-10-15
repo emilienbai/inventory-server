@@ -4,8 +4,6 @@ import { AuthorFactory } from './Author';
 import { ItemFactory } from './Item';
 import { UserFactory } from './User';
 
-const ModelNames = ['Author', 'Item', 'User' ];
-
 export const createModels = (): DbInterface => {
     const sequelizeConfig = require('../config/sequelize/sequelizeConfig.json');
     const { database, username, password, params } = sequelizeConfig;
