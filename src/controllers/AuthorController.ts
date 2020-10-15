@@ -34,7 +34,7 @@ export class AuthorController implements IAuthorController {
             });
             return res.json(author);
         } catch (error: unknown) {
-            return res.status(404).send(error);
+            return res.status(404).send();
         }
     }
 
@@ -54,5 +54,21 @@ export class AuthorController implements IAuthorController {
             }
             return res.status(500).send();
         }
+    }
+
+    public async update(req: Request, res: Response): Promise<Response> {
+        let author: Author;
+        try {
+            author = await Author.findOne({
+                where: { id: req.params.authorId, creatorId: req.loggedInUser.id },
+                rejectOnEmpty: true
+            });
+        } catch (error) {
+            return res.status(404).send();
+        }
+
+        author.assign(req.body);
+        await author.save();
+        return res.json(author);
     }
 }

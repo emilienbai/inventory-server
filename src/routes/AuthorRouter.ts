@@ -12,6 +12,7 @@ export class AuthorRouter implements IRouter {
         this.router.post('', this.authorController.create.bind(this.authorController));
         this.router.get('', this.authorController.list.bind(this.authorController));
         this.router.get('/:authorId', this.authorController.get.bind(this.authorController));
+        this.router.put('/:authorId', this.authorController.update.bind(this.authorController));
     }
 
     public getRoutes(): express.Router {

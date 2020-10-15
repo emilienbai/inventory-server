@@ -14,7 +14,7 @@ interface ICRUDController {
     delete(req: Request, res: Response, next?: NextFunction): Promise<Response>;
 }
 
-export type IAuthorController = Pick<ICRUDController, 'create' | 'get' | 'list'>;
+export type IAuthorController = Pick<ICRUDController, 'create' | 'get' | 'list' | 'update'>;
 
 export type IItemController = Pick<ICRUDController, 'create' | 'get'>;
 

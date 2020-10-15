@@ -1,5 +1,5 @@
 import { DataTypes, HasManyGetAssociationsMixin, Model, Optional, Sequelize } from 'sequelize';
-import { AssociableModel } from '../@types/DbInterface';
+import { AssociableModel, IAssignable } from '../@types/DbInterface';
 import { SequelizeAttributes } from '../@types/SequelizeAttributes';
 import { Item } from './Item';
 import { User } from './User';
@@ -14,7 +14,9 @@ export interface AuthorAttributes {
 
 type AuthorCreationAttributes = Optional<AuthorAttributes, 'id'>;
 
-export class Author extends Model<AuthorAttributes, AuthorCreationAttributes> implements AuthorAttributes {
+export class Author
+    extends Model<AuthorAttributes, AuthorCreationAttributes>
+    implements AuthorAttributes, IAssignable<AuthorAttributes> {
     public id!: number;
     public name!: string;
     public creatorId!: number;
@@ -27,6 +29,10 @@ export class Author extends Model<AuthorAttributes, AuthorCreationAttributes> im
 
     public readonly creator?: User | null;
     public readonly items?: Item[] | null;
+
+    public assign(data: AuthorAttributes): void {
+        this.name = data.name ? data.name : this.name;
+    }
 }
 
 export const AuthorFactory = (sequelize: Sequelize): AssociableModel<Author, AuthorAttributes> => {
