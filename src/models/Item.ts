@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
-import { AssociableModel } from '../@types/DbInterface';
+import { AssociableModel, IAssignable } from '../@types/DbInterface';
 import { SequelizeAttributes } from '../@types/SequelizeAttributes';
 import { Author } from './Author';
 import { User } from './User';
@@ -19,7 +19,9 @@ export interface ItemAttributes {
 
 type ItemCreationAttributes = Optional<ItemAttributes, 'id'>;
 
-export class Item extends Model<ItemAttributes, ItemCreationAttributes> implements ItemAttributes {
+export class Item
+    extends Model<ItemAttributes, ItemCreationAttributes>
+    implements ItemAttributes, IAssignable<ItemAttributes> {
     public id!: number;
     public name!: string;
     public type!: 'book' | 'cd' | 'dvd';
@@ -35,6 +37,16 @@ export class Item extends Model<ItemAttributes, ItemCreationAttributes> implemen
 
     public readonly creator?: User | null;
     public readonly author?: Author | null;
+
+    public assign(data: ItemAttributes): void {
+        this.name = data.name ? data.name : this.name;
+        this.type = data.type ? data.type : this.type;
+        this.year = data.year ? data.year : this.year;
+        this.barcode = data.barcode ? data.barcode : this.barcode;
+        if (!this.authorId) {
+            this.authorId = data.authorId;
+        }
+    }
 }
 
 export const ItemFactory = (sequelize: Sequelize): AssociableModel<Item, ItemAttributes> => {
@@ -61,7 +73,8 @@ export const ItemFactory = (sequelize: Sequelize): AssociableModel<Item, ItemAtt
             allowNull: true
         },
         authorId: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            allowNull: false
         },
         creatorId: {
             type: DataTypes.INTEGER,

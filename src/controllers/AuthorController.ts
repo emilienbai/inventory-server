@@ -66,9 +66,12 @@ export class AuthorController implements IAuthorController {
         } catch (error) {
             return res.status(404).send();
         }
-
-        author.assign(req.body);
-        await author.save();
-        return res.json(author);
+        try {
+            author.assign(req.body);
+            await author.save();
+            return res.json(author);
+        } catch (error) {
+            return res.json(500).send();
+        }
     }
 }

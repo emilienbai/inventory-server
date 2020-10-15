@@ -13,7 +13,9 @@ export class ItemRouter implements IRouter {
     ) {
         this.router = express.Router();
         this.router.post('', this.itemController.create.bind(this.itemController));
+        this.router.get('', this.itemController.list.bind(this.itemController));
         this.router.get('/:itemId', this.itemController.get.bind(this.itemController));
+        this.router.put('/:itemId', this.itemController.update.bind(this.itemController));
     }
 
     public getRoutes(): express.Router {

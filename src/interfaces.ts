@@ -16,7 +16,7 @@ interface ICRUDController {
 
 export type IAuthorController = Pick<ICRUDController, 'create' | 'get' | 'list' | 'update'>;
 
-export type IItemController = Pick<ICRUDController, 'create' | 'get'>;
+export type IItemController = Pick<ICRUDController, 'create' | 'get' | 'list' | 'update'>;
 
 export interface IAuthController {
     signup(req: Request, res: Response): Promise<Response>;
