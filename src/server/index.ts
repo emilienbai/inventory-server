@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import express from 'express';
 import passport from 'passport';
+import path from 'path';
 
 import { initializePassport } from './config/passport/passport';
 import { IRouter } from './interfaces';
@@ -31,6 +32,10 @@ initializePassport(passport, User);
 
 // parse application/json
 app.use(bodyParser.json());
+
+const pathToPublic = path.join(__dirname, '../../build/public');
+app.use(express.static(pathToPublic));
+app.get('/', (req, res) => res.sendFile(path.join(pathToPublic, 'index.html')));
 
 const indexRouter = myContainer.get<IRouter>(TYPES.IIndexRouter);
 app.use('/api', indexRouter.getRoutes());
