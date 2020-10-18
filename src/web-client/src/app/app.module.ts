@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { LoginController } from './components/login/LoginController';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-    declarations: [AppComponent],
-    imports: [BrowserModule, AppRoutingModule],
+    declarations: [LoginController],
+    imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
     providers: [],
-    bootstrap: [AppComponent]
+    bootstrap: [LoginController]
 })
 export class AppModule {}

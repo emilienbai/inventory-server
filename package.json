@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "start": "npm run build && node build/server/index.js",
-    "start:dev": "nodemon",
+    "start:dev": "nodemon & ng build --watch",
     "build": "rimraf ./build && (tsc & ng build)",
     "lint": "eslint . --ext .ts"
   },
@@ -47,6 +47,15 @@
     "tslint": "~6.1.0"
   },
   "dependencies": {
+    "@angular/animations": "~10.1.6",
+    "@angular/cdk": "^10.2.5",
+    "@angular/common": "~10.1.6",
+    "@angular/compiler": "~10.1.6",
+    "@angular/core": "~10.1.6",
+    "@angular/forms": "~10.1.6",
+    "@angular/platform-browser": "~10.1.6",
+    "@angular/platform-browser-dynamic": "~10.1.6",
+    "@angular/router": "~10.1.6",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
@@ -57,16 +66,8 @@
     "passport-local": "^1.0.0",
     "pg": "^8.4.1",
     "reflect-metadata": "^0.1.13",
-    "sequelize": "^6.3.5",
-    "@angular/animations": "~10.1.6",
-    "@angular/common": "~10.1.6",
-    "@angular/compiler": "~10.1.6",
-    "@angular/core": "~10.1.6",
-    "@angular/forms": "~10.1.6",
-    "@angular/platform-browser": "~10.1.6",
-    "@angular/platform-browser-dynamic": "~10.1.6",
-    "@angular/router": "~10.1.6",
     "rxjs": "~6.6.0",
+    "sequelize": "^6.3.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   }
