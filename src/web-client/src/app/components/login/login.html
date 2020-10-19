@@ -1,5 +1,26 @@
-<div class="mdc-layout-grid">
-    <div class="mdc-layout-grid__inner">
-        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span6">Username</div>
+<div class="background h-100 vh-100">
+    <div class="container h-100 d-flex">
+        <div class="Card m-auto">
+            <form class="validate-form">
+                <span> Welcome </span>
+                <div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
+                    <input class="input100" type="text" name="email" />
+                    <span data-placeholder="Email"></span>
+                </div>
+                <div class="wrap-input100 validate-input" data-validate="Enter password">
+                    <span class="btn-show-pass">
+                        <i class="zmdi zmdi-eye"></i>
+                    </span>
+                    <input class="input100" type="password" name="pass" />
+                    <span class="focus-input100" data-placeholder="Password"></span>
+                </div>
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button class="login100-form-btn">Login</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

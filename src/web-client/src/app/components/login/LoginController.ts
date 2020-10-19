@@ -3,8 +3,6 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'app-login',
     templateUrl: 'login.html',
-    styles: []
+    styleUrls: ['login.scss']
 })
-export class LoginController {
-    public title = 'web-client';
-}
+export class LoginController {}
