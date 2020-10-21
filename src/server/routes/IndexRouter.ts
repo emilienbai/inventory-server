@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { inject, injectable } from 'inversify';
 import passport from 'passport';
 import { IAuthController, IRouter } from '../interfaces';
@@ -26,6 +26,9 @@ export class IndexRouter implements IRouter {
             passport.authenticate('local-signin'),
             this.authController.login.bind(this.authController)
         );
+        this.router.get('/is-logged-in', authController.isLoggedIn, (req: Request, res: Response) => {
+            res.json(req.loggedInUser);
+        });
         this.router.get('/logout', this.authController.logout.bind(this.authController));
 
         this.router.use('/items', authController.isLoggedIn, this.itemRouter.getRoutes());

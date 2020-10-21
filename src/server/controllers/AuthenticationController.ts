@@ -29,21 +29,18 @@ export class AuthenticationController implements IAuthController {
 
     public async login(req: Request, res: Response): Promise<Response> {
         try {
-            await User.findOne({
+            let user = await User.findOne({
                 where: {
                     username: req.body.username
                 }
             });
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            return res.json(user);
         } catch (error) {
             console.error(error);
             return res.status(403).send();
         }
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        return res.json({
-            success: true,
-            status: 'You are successfully logged in!'
-        });
     }
 
     public async logout(req: Request & { session: any }, res: Response): Promise<Response> {
