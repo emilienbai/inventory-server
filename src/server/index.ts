@@ -33,12 +33,15 @@ initializePassport(passport, User);
 // parse application/json
 app.use(bodyParser.json());
 
+const apiRouter = myContainer.get<IRouter>(TYPES.IIndexRouter);
+app.use('/api', apiRouter.getRoutes());
+
 const pathToPublic = path.join(__dirname, '../../build/public');
 app.use(express.static(pathToPublic));
-app.get('/', (req, res) => res.sendFile(path.join(pathToPublic, 'index.html')));
 
-const indexRouter = myContainer.get<IRouter>(TYPES.IIndexRouter);
-app.use('/api', indexRouter.getRoutes());
+const nonAPIRouter = express.Router();
+nonAPIRouter.get('/*', (req, res) => res.sendFile(path.join(pathToPublic, 'index.html')));
+app.use(nonAPIRouter);
 
 const port = process.env.port ? parseInt(process.env.PORT as string) : 5000;
 const db = createModels();

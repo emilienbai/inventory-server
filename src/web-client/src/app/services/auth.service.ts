@@ -9,8 +9,11 @@ export class AuthService {
 
     public async isAuthenticated(): Promise<boolean> {
         let userData = localStorage.getItem('userInfo');
-        const loggedInUser: any = await this.http.get('/api/is-logged-in', { withCredentials: true }).toPromise();
-        if (userData) {
+        let loggedInUser: any;
+        try {
+            loggedInUser = await this.http.get('/api/is-logged-in', { withCredentials: true }).toPromise();
+        } catch (error) {}
+        if (userData && loggedInUser) {
             const parsedData = JSON.parse(userData);
             return loggedInUser.id === parsedData.id;
         }

@@ -1,6 +1,6 @@
 @import "src/web-client/src/colors";
 .background {
-    background: linear-gradient(36deg, $dark-shade, lighten($dark-shade, 15%));
+    background: linear-gradient(36deg, lighten($dark-shade, 30%), lighten($dark-shade, 10%));
 }
 
 .card {
