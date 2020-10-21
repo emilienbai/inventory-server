@@ -1,19 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
-$dark-shade: #1E1AF5;
-$dark-accent: #60788E;
-$main-brand-color: #889DC1;
-$light-accent: #98A1AB;
-$light-shades: #F1EFE2;
+@import 'colors';
+@import "node_modules/bootstrap/scss/bootstrap";
 
-$primary: $main-brand-color;
-$info: #2126EA;
-$success: #5EAA72;
-$warning: #db9A3A;
-$danger: #F44336;
+$theme-colors: (
+    'primary': $primary,
+    'secondary': $secondary,
+    'success': $success,
+    'info': $info,
+    'warning': $warning,
+    'danger': $danger,
+    'light': $light-accent,
+    'dark': $dark-accent
+);
 
-html, body {
-  min-height: 100vh;
-  height: auto;
-  margin: 0;
+$enable-shadows: true;
+$font-family-base: 'Roboto Light', Helvetica, Arial, sans-serif;
+
+html,
+body {
+    min-height: 100vh;
+    height: auto;
+    margin: 0;
 }
 
+.card {
+    background-color: $light-shades;
+}

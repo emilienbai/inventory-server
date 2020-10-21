@@ -1,12 +1,9 @@
 @import "src/web-client/src/colors";
 .background {
-  background: linear-gradient(36deg, $dark-shade, lighten($dark-shade, 15%));
+    background: linear-gradient(36deg, $dark-shade, lighten($dark-shade, 15%));
 }
 
-.Card {
-  width: 400px;
-  height: 600px;
-
-  border-radius: 10px;
-  box-shadow: 5px 10px 5px darkgray;
+.card {
+    width: 400px;
+    height: 600px;
 }

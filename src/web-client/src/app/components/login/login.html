@@ -1,26 +1,18 @@
 <div class="background h-100 vh-100">
-    <div class="container h-100 d-flex">
-        <div class="Card m-auto">
-            <form class="validate-form">
-                <span> Welcome </span>
-                <div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
-                    <input class="input100" type="text" name="email" />
-                    <span data-placeholder="Email"></span>
-                </div>
-                <div class="wrap-input100 validate-input" data-validate="Enter password">
-                    <span class="btn-show-pass">
-                        <i class="zmdi zmdi-eye"></i>
-                    </span>
-                    <input class="input100" type="password" name="pass" />
-                    <span class="focus-input100" data-placeholder="Password"></span>
-                </div>
-                <div class="container-login100-form-btn">
-                    <div class="wrap-login100-form-btn">
-                        <div class="login100-form-bgbtn"></div>
-                        <button class="login100-form-btn">Login</button>
-                    </div>
-                </div>
-            </form>
+  <div class="container h-100 d-flex">
+    <div class="card m-auto">
+      <form class="card-body d-flex flex-column align-items-center justify-content-center validate-form">
+        <h2 class="card-title mb-5"> Welcome !</h2>
+        <div class="form-group w-75">
+          <label for="username"> Username </label>
+          <input type="text" class="form-control" id="username" placeholder="Enter username"/>
         </div>
+        <div class="form-group w-75">
+          <label for="password"> Password </label>
+          <input type="password" class="form-control" id="password" placeholder="password"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
     </div>
+  </div>
 </div>
