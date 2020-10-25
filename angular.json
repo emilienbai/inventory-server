@@ -50,7 +50,9 @@
               "src/web-client/src/assets"
             ],
             "styles": [
-              "src/web-client/src/styles.scss"
+              "src/web-client/src/styles.scss",
+              "node_modules/font-awesome/css/font-awesome.css"
+
             ],
             "scripts": []
           },
