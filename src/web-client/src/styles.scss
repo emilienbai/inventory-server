@@ -32,3 +32,8 @@ app-home {
 .card {
     background-color: $light-shades;
 }
+
+.modal-backdrop {
+    background-color: $dark-accent;
+    opacity: 0.5;
+}

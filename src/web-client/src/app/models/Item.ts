@@ -10,6 +10,7 @@ export class Item {
     public year: number | null;
 
     public static readonly baseUrl: string = '/api/items';
+    public static readonly types = ['book', 'cd', 'dvd'];
 
     public constructor(params: any) {
         this.assign(params);

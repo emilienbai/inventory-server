@@ -58,11 +58,13 @@ export const ItemFactory = (sequelize: Sequelize): AssociableModel<Item, ItemAtt
         },
         name: {
             type: DataTypes.TEXT,
-            unique: { name: 'UniqueItemByCreatorAndType', msg: 'An item with this name and type already exists' }
+            unique: { name: 'UniqueItemByCreatorAndType', msg: 'An item with this name and type already exists' },
+            allowNull: false
         },
         type: {
             type: DataTypes.ENUM('book', 'cd', 'dvd'),
-            unique: 'UniqueItemByCreatorAndType'
+            unique: 'UniqueItemByCreatorAndType',
+            allowNull: false
         },
         year: {
             type: DataTypes.INTEGER,
