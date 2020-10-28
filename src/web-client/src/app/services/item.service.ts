@@ -12,4 +12,9 @@ export class ItemService {
         const rawItems = (await this.http.get(Item.baseUrl, { withCredentials: true }).toPromise()) as any[];
         return rawItems.map((ri) => new Item(ri));
     }
+
+    public async create(item: Item): Promise<Item> {
+        const rawItem = await this.http.post(Item.baseUrl, item.toJSON(), { withCredentials: true }).toPromise();
+        return new Item(rawItem);
+    }
 }
