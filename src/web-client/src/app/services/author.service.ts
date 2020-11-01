@@ -12,4 +12,9 @@ export class AuthorService {
         const rawAuthors = (await this.http.get(Author.baseUrl, { withCredentials: true }).toPromise()) as any[];
         return rawAuthors.map((ra) => new Author(ra));
     }
+
+    public async create(author: Author): Promise<Author> {
+        const rawAuthor = await this.http.post(Author.baseUrl, author.toJSON(), { withCredentials: true }).toPromise();
+        return new Author(rawAuthor);
+    }
 }

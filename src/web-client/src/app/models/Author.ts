@@ -18,4 +18,12 @@ export class Author {
         this.name = data.name ?? this.name;
         this.updatedAt = new Date(data.updatedAt) ?? this.updatedAt;
     }
+
+    public toJSON(): any {
+        return {
+            id: this.id,
+            name: this.name,
+            creatorId: this.creatorId
+        };
+    }
 }

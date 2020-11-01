@@ -1,59 +1,63 @@
 <div class="modal-dialog">
-    <div class="modal-content">
-        <form [formGroup]="itemForm" (ngSubmit)="onSubmit(itemForm.value)">
-            <div class="modal-header">
-                <h5 class="modal-title">Add an item</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
+  <div class="modal-content">
+    <form [formGroup]="itemForm" (ngSubmit)="onSubmit(itemForm.value)">
+      <div class="modal-header">
+        <h5 class="modal-title">Add an item</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
 
-              <div class="form-group">
-                <label for="type">Type</label>
-                <select id="type"
-                        class="form-control"
-                        formControlName="type">
-                  <option *ngFor="let type of allowedTypes" [ngValue]="type">
-                    {{ type }}
-                  </option>
-                </select>
-              </div>
+        <div class="form-group">
+          <label for="type">Type</label>
+          <select id="type"
+                  class="form-control"
+                  formControlName="type"
+                  (autocomplete)="true">
+            <option (autocomplete)="true" *ngFor="let type of allowedTypes" [ngValue]="type">
+              {{ type }}
+            </option>
+          </select>
+        </div>
 
-              <div class="form-group">
-                <label for="name">Name</label>
-                <input id="name"
-                       type="text"
-                       class="form-control"
-                       placeholder="Enter item name"
-                       formControlName="name">
-              </div>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input id="name"
+                 type="text"
+                 class="form-control"
+                 placeholder="Enter item name"
+                 formControlName="name">
+        </div>
 
-              <div class="form-group">
-                <label for="authorId">Author</label>
-                <select id="authorId"
-                        class="form-control"
-                        formControlName="authorId">
-                  <option *ngFor="let author of availableAuthors" [ngValue]="author.id">
-                    {{ author.name }}
-                  </option>
-                </select>
-              </div>
+        <div class="form-group">
+          <label for="authorId">Author</label>
+          <ng-select id="authorId"
+                     [items]="availableAuthors"
+                     searchable="true"
+                     bindLabel="name"
+                     bindValue="id"
+                     formControlName="authorId"
+                     [addTag]="addAuthor"
+                     addTagText="Add author"
+          >
+          </ng-select>
+        </div>
 
-              <div class="form-group">
-                <label for="barcode">Barcode</label>
-                <input id="barcode"
-                       type="text"
-                       class="form-control"
-                       placeholder="Enter barcode"
-                       formControlName="name">
-              </div>
+        <div class="form-group">
+          <label for="barcode">Barcode</label>
+          <input id="barcode"
+                 type="text"
+                 class="form-control"
+                 placeholder="Enter barcode"
+                 formControlName="name">
+        </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
-        </form>
-    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </form>
+  </div>
 </div>

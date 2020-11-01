@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AppRoutingModule } from './app-routing.module';
 import { RootComponent } from './components/root/root.component';
@@ -17,6 +18,7 @@ import { AddItemModalComponent } from './components/add-item-modal/add-item-moda
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
+        NgSelectModule,
         HttpClientModule,
         AppRoutingModule,
         BrowserAnimationsModule

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Author } from '../../models/Author';
 import { Item } from '../../models/Item';
 import { AuthorService } from '../../services/author.service';
 import { ItemService } from '../../services/item.service';
@@ -41,4 +42,8 @@ export class AddItemModalComponent implements OnInit {
         await this.itemService.create(this.item);
         this.close();
     }
+
+    public addAuthor = async (authorName: string): Promise<Author> => {
+        return await this.authorService.create(new Author({ name: authorName }));
+    };
 }
