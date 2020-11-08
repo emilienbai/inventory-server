@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Route, Router } from '@angular/router';
 import { Item } from '../../models/Item';
 import { ItemService } from '../../services/item.service';
 
@@ -14,10 +15,14 @@ export class ItemListComponent implements OnInit {
 
     public itemList: Item[];
 
-    public constructor(protected readonly itemService: ItemService) {}
+    public constructor(protected readonly itemService: ItemService, private readonly router: Router) {}
 
     public async ngOnInit(): Promise<void> {
         this.itemList = await this.itemService.getAll();
+    }
+
+    public async viewDetails(item: Item): Promise<void> {
+        await this.router.navigate(['item', item.id]);
     }
 
     showDialog() {

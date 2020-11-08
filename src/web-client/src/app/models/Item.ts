@@ -5,12 +5,12 @@ export class Item {
     public creatorId: number;
     public id: number;
     public name: string;
-    public type: 'book' | 'cd' | 'dvd';
+    public type: 'book' | 'cd' | 'dvd' | 'boardGame' | 'videoGame';
     public updatedAt: Date;
     public year: number | null;
 
     public static readonly baseUrl: string = '/api/items';
-    public static readonly types = ['book', 'cd', 'dvd'];
+    public static readonly types = ['book', 'cd', 'dvd', 'boardGame', 'videoGame'];
 
     public constructor(params: any) {
         this.assign(params);
@@ -36,5 +36,20 @@ export class Item {
             year: this.year,
             barcode: this.barcode
         };
+    }
+
+    public getIconClass(): string {
+        switch (this.type) {
+            case 'boardGame':
+                return 'fa-dice';
+            case 'book':
+                return 'fa-book';
+            case 'cd':
+                return 'fa-music';
+            case 'dvd':
+                return 'fa-film';
+            case 'videoGame':
+                return 'fa-gamepad';
+        }
     }
 }

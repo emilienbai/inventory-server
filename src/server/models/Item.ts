@@ -62,7 +62,7 @@ export const ItemFactory = (sequelize: Sequelize): AssociableModel<Item, ItemAtt
             allowNull: false
         },
         type: {
-            type: DataTypes.ENUM('book', 'cd', 'dvd'),
+            type: DataTypes.ENUM('book', 'cd', 'dvd', 'boardGame', 'videoGame '),
             unique: 'UniqueItemByCreatorAndType',
             allowNull: false
         },

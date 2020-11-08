@@ -1,31 +1,28 @@
 <div class="container">
-  <div class="container row d-flex list-group-item list-group-item-dark">
-    <div class="col-11">Header row </div>
-    <div class="col-1">
-      <button class="btn btn-primary"
-      (click)="showDialog()" >Ajouter</button>
+    <div class="container row d-flex list-group-item list-group-item-dark">
+        <div class="col-11">Header row</div>
+        <div class="col-1">
+            <button class="btn btn-primary" (click)="showDialog()">Ajouter</button>
+        </div>
     </div>
-  </div>
-  <div class="container row d-flex list-group-item" *ngFor="let item of itemList">
-    <div class="col-1" [ngSwitch]="item.type">
-      <i *ngSwitchCase="'book'" class="fa fa-2x fa-book"></i>
-      <i *ngSwitchCase="'cd'" class="fa fa-2x fa-music"></i>
-      <i *ngSwitchCase="'dvd'" class="fa fa-2x fa-film"></i>
+    <div class="container row d-flex list-group-item" *ngFor="let item of itemList">
+        <div class="col-1">
+            <i class="fa fa-2x fa-book" [ngClass]="item.getIconClass()"></i>
+        </div>
+        <div class="col-9">
+            {{ item.name }}
+        </div>
+        <div class="container d-flex col-2 align-items-end">
+            <div class="col m-clickable">
+                <i class="fa fa-2x fa-edit" (click)="viewDetails(item)"></i>
+            </div>
+            <div class="col m-clickable">
+                <i class="fa fa-2x fa-trash"></i>
+            </div>
+        </div>
     </div>
-    <div class="col-9">
-      {{item.name}}
-    </div>
-    <div class="container d-flex col-2 align-items-end">
-      <div class="col">
-        <i class="fa fa-2x fa-edit"></i>
-      </div>
-      <div class="col">
-        <i class="fa fa-2x fa-trash"></i>
-      </div>
-    </div>
-  </div>
 </div>
 <ng-container #modalContainer></ng-container>
 <ng-template #modal>
-  <app-add-item-modal class="modal fade" [close]="closeDialog.bind(this)"></app-add-item-modal>
+    <app-add-item-modal class="modal fade" [close]="closeDialog.bind(this)"></app-add-item-modal>
 </ng-template>
