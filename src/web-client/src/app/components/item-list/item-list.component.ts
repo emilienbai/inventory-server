@@ -11,7 +11,7 @@ import { ItemService } from '../../services/item.service';
 export class ItemListComponent implements OnInit {
     @ViewChild('modal') modal: TemplateRef<any>;
     @ViewChild('modalContainer', { read: ViewContainerRef }) modalContainerRef: ViewContainerRef;
-    backdrop: any;
+    private backdrop: any;
 
     public itemList: Item[];
 
@@ -25,7 +25,7 @@ export class ItemListComponent implements OnInit {
         await this.router.navigate(['item', item.id]);
     }
 
-    showDialog() {
+    public showDialog(): void {
         let view = this.modal.createEmbeddedView(null);
         this.modalContainerRef.insert(view);
         this.modal.elementRef.nativeElement.previousElementSibling.classList.remove('fade');
@@ -36,7 +36,7 @@ export class ItemListComponent implements OnInit {
         document.body.appendChild(this.backdrop);
     }
 
-    closeDialog() {
+    public closeDialog(): void {
         this.modalContainerRef.clear();
         document.body.removeChild(this.backdrop);
     }

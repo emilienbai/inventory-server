@@ -20,7 +20,7 @@ export class AuthService {
         return false;
     }
 
-    public setUserInfo(user: any) {
+    public setUserInfo(user: any): void {
         localStorage.setItem('userInfo', JSON.stringify(user));
     }
 
