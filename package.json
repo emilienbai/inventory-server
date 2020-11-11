@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run build && node build/server/index.js",
     "start:dev": "nodemon & ng build --watch",
-    "build": "rimraf ./build && (tsc & ng build)",
+    "build": "rm -rf ./build && (tsc & ng build)",
     "lint": "eslint . --ext .ts"
   },
   "repository": {
@@ -40,7 +40,6 @@
     "mocha": "^8.1.3",
     "nodemon": "^2.0.4",
     "prettier": "^2.1.2",
-    "rimraf": "^3.0.2",
     "ts-node": "^9.0.0",
     "tslint": "~6.1.0",
     "types": "^0.1.1",
