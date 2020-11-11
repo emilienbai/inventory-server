@@ -21,10 +21,6 @@ export class ItemListComponent implements OnInit {
         this.itemList = await this.itemService.getAll();
     }
 
-    public async viewDetails(item: Item): Promise<void> {
-        await this.router.navigate(['item', item.id]);
-    }
-
     public showDialog(): void {
         let view = this.modal.createEmbeddedView(null);
         this.modalContainerRef.insert(view);

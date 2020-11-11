@@ -7,14 +7,14 @@
     </div>
     <div class="container row d-flex list-group-item" *ngFor="let item of itemList">
         <div class="col-1">
-            <i class="fa fa-2x fa-book" [ngClass]="item.getIconClass()"></i>
+            <i class="fa fa-2x" [ngClass]="item.getIconClass()"></i>
         </div>
         <div class="col-9">
             {{ item.name }}
         </div>
         <div class="container d-flex col-2 align-items-end">
             <div class="col m-clickable">
-                <i class="fa fa-2x fa-edit" (click)="viewDetails(item)"></i>
+                <i class="fa fa-2x fa-edit" [routerLink]="['/item', item.id]"></i>
             </div>
             <div class="col m-clickable">
                 <i class="fa fa-2x fa-trash"></i>
