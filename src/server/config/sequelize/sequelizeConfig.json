@@ -5,6 +5,7 @@
     "params": {
         "host": "localhost",
         "dialect": "postgres",
-        "operatorsAliases": false
+        "operatorsAliases": false,
+        "logging": false
     }
 }
