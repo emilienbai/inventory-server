@@ -1,1 +1,26 @@
-<p>item-details works!</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+            {{ item.name }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+          <i class="fa fa-3x" [ngClass]="item.getIconClass()"></i>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-4">Auteur :&nbsp;</div>
+                <div class="col-8">{{ item.author.name }}</div>
+            </div>
+            <div class="row">
+                <div class="col-4">Année de sortie :&nbsp;</div>
+                <div class="col-8">{{ item.year ? item.year : 'NC' }}</div>
+            </div>
+            <div class="row">
+                <div class="col-4">Année de sortie :&nbsp;</div>
+                <div class="col-8">{{ item.barcode ? item.barcode : 'NC' }}</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -13,6 +13,11 @@ export class ItemService {
         return rawItems.map((ri) => new Item(ri));
     }
 
+    public async getOne(itemId: number): Promise<Item> {
+        const rawItem = await this.http.get(Item.baseUrl + '/' + itemId, { withCredentials: true }).toPromise();
+        return new Item(rawItem);
+    }
+
     public async create(item: Item): Promise<Item> {
         const rawItem = await this.http.post(Item.baseUrl, item.toJSON(), { withCredentials: true }).toPromise();
         return new Item(rawItem);

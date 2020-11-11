@@ -1,3 +1,5 @@
+import { Author } from './Author';
+
 export class Item {
     public authorId: number;
     public barcode: string | null;
@@ -8,6 +10,7 @@ export class Item {
     public type: 'book' | 'cd' | 'dvd' | 'boardGame' | 'videoGame';
     public updatedAt: Date;
     public year: number | null;
+    public author?: Author;
 
     public static readonly baseUrl: string = '/api/items';
     public static readonly types = ['book', 'cd', 'dvd', 'boardGame', 'videoGame'];
@@ -25,6 +28,9 @@ export class Item {
         this.barcode = data.barcode ? data.barcode : this.barcode;
         this.createdAt = data.createdAt ?? this.createdAt;
         this.updatedAt = data.updatedAt ?? this.updatedAt;
+        if ('author' in data) {
+            this.author = new Author(data.author);
+        }
     }
 
     public toJSON(): any {
