@@ -1,12 +1,13 @@
 import { Sequelize } from 'sequelize';
 import { DbInterface } from '../@types/DbInterface';
+import { SequelizeConfig } from '../config/sequelize/sequelizeConfig';
 import { AuthorFactory } from './Author';
 import { ItemFactory } from './Item';
 import { UserFactory } from './User';
 
 export const createModels = (): DbInterface => {
-    const sequelizeConfig = require('../config/sequelize/sequelizeConfig.json');
-    const { database, username, password, params } = sequelizeConfig;
+    const config = new SequelizeConfig();
+    const { database, username, password, params } = config;
     const sequelize = new Sequelize(database, username, password, params);
 
     const db: DbInterface = {
