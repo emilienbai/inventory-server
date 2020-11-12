@@ -1,3 +1,4 @@
+import { faBook, faDice, faFilm, faGamepad, faMusic, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Author } from './Author';
 
 export class Item {
@@ -44,18 +45,18 @@ export class Item {
         };
     }
 
-    public getIconClass(): string {
+    public getIconDefinition(): IconDefinition {
         switch (this.type) {
             case 'boardGame':
-                return 'fa-dice';
+                return faDice;
             case 'book':
-                return 'fa-book';
+                return faBook;
             case 'cd':
-                return 'fa-music';
+                return faMusic;
             case 'dvd':
-                return 'fa-film';
+                return faFilm;
             case 'videoGame':
-                return 'fa-gamepad';
+                return faGamepad;
         }
     }
 }

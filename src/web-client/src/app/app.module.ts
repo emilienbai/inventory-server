@@ -12,6 +12,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ItemListComponent } from './components/item-list/item-list.component';
 import { AddItemModalComponent } from './components/add-item-modal/add-item-modal.component';
 import { ItemDetailsComponent } from './components/item-details/item-details.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import { ItemDetailsComponent } from './components/item-details/item-details.com
         NgSelectModule,
         HttpClientModule,
         AppRoutingModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        FontAwesomeModule
     ],
     providers: [],
     bootstrap: [RootComponent]

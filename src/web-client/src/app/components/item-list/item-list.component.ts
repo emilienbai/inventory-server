@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Route, Router } from '@angular/router';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Item } from '../../models/Item';
 import { ItemService } from '../../services/item.service';
 
@@ -9,6 +10,8 @@ import { ItemService } from '../../services/item.service';
     styleUrls: ['./item-list.component.scss']
 })
 export class ItemListComponent implements OnInit {
+    public faEdit = faEdit;
+    public faTrash = faTrash;
     @ViewChild('modal') modal: TemplateRef<any>;
     @ViewChild('modalContainer', { read: ViewContainerRef }) modalContainerRef: ViewContainerRef;
     private backdrop: any;
