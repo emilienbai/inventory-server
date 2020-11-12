@@ -22,16 +22,16 @@
         </div>
 
         <div class="form-group">
-          <label for="name">Name</label>
+          <label for="name">Nom</label>
           <input id="name"
                  type="text"
                  class="form-control"
-                 placeholder="Enter item name"
+                 placeholder="Nom"
                  formControlName="name">
         </div>
 
         <div class="form-group">
-          <label for="authorId">Author</label>
+          <label for="authorId">Auteur</label>
           <ng-select id="authorId"
                      [items]="availableAuthors"
                      searchable="true"
@@ -45,18 +45,29 @@
         </div>
 
         <div class="form-group">
-          <label for="barcode">Barcode</label>
+          <label for="year">Année de sortie</label>
+          <input id="year"
+                 type="number"
+                 min="0"
+                 max="3000"
+                 class="form-control"
+                 placeholder="Année"
+                 formControlName="year">
+        </div>
+
+        <div class="form-group">
+          <label for="barcode">Code barre</label>
           <input id="barcode"
                  type="text"
                  class="form-control"
-                 placeholder="Enter barcode"
-                 formControlName="name">
+                 placeholder="Code barre"
+                 formControlName="barcode">
         </div>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Fermer</button>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
       </div>
     </form>
   </div>
