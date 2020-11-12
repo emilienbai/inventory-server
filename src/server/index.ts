@@ -43,7 +43,7 @@ const nonAPIRouter = express.Router();
 nonAPIRouter.get('/*', (req, res) => res.sendFile(path.join(pathToPublic, 'index.html')));
 app.use(nonAPIRouter);
 
-const port = process.env.port ? parseInt(process.env.PORT as string) : 5000;
+const port = process.env.PORT ? parseInt(process.env.PORT as string) : 5000;
 const db = createModels();
 (async () => {
     await db.sequelize.sync();
