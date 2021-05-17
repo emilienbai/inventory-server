@@ -7,8 +7,8 @@ import { UserFactory } from './User';
 
 export const createModels = (): DbInterface => {
     const config = new SequelizeConfig();
-    const { database, username, password, params } = config;
-    const sequelize = new Sequelize(database, username, password, params);
+    const { url, params } = config;
+    const sequelize = new Sequelize(url, params);
 
     const db: DbInterface = {
         sequelize,
