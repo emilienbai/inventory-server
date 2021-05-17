@@ -9,7 +9,10 @@ export class SequelizeConfig {
         this.params = {
             dialect: 'postgres',
             operatorsAliases: false,
-            logging: false
+            logging: false,
+            dialectOptions: {
+                ssl: true
+            }
         };
     }
 }
