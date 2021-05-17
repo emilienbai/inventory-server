@@ -11,7 +11,10 @@ export class SequelizeConfig {
             operatorsAliases: false,
             logging: false,
             dialectOptions: {
-                ssl: true
+                ssl: {
+                    require: true,
+                    rejectUnauthorized: false
+                }
             }
         };
     }
