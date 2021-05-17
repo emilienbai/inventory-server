@@ -10,12 +10,16 @@ export class SequelizeConfig {
             dialect: 'postgres',
             operatorsAliases: false,
             logging: false,
-            dialectOptions: {
-                ssl: {
-                    require: true,
-                    rejectUnauthorized: false
-                }
-            }
+            ...(environment.SKIP_SSL === 'true'
+                ? {}
+                : {
+                      dialectOptions: {
+                          ssl: {
+                              require: true,
+                              rejectUnauthorized: false
+                          }
+                      }
+                  })
         };
     }
 }
