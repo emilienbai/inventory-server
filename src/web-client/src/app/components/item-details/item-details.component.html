@@ -1,26 +1,46 @@
-<div class="container">
-    <div class="row justify-content-md-center">
-        <div class="col-md-auto">
-            {{ item.name }}
+<div *ngIf="!isLoading" class="container">
+    <div class="row justify-content-md-center mt-5 mb-5">
+        <div class="col-md-auto font-weight-bold">
+            <input type="text" *ngIf="editMode" [(ngModel)]="item.name" />
+            <span *ngIf="!editMode"> {{ item.name }}</span>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-          <fa-icon [icon]="item.getIconDefinition()" size="3x"></fa-icon>
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
+            <fa-icon [icon]="item.getIconDefinition()" size="3x"></fa-icon>
         </div>
         <div class="col-md-6">
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col-4">Auteur :&nbsp;</div>
-                <div class="col-8">{{ item.author.name }}</div>
+                <div class="col-8">
+                    {{ item.author.name }}
+                </div>
             </div>
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col-4">Année de sortie :&nbsp;</div>
-                <div class="col-8">{{ item.year ? item.year : 'NC' }}</div>
+                <div class="col-8">
+                    <input type="text" *ngIf="editMode" [(ngModel)]="item.year" />
+                    <span *ngIf="!editMode"> {{ item.year ? item.year : 'NC' }}</span>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-4">Année de sortie :&nbsp;</div>
-                <div class="col-8">{{ item.barcode ? item.barcode : 'NC' }}</div>
+            <div class="row mb-3">
+                <div class="col-4">Code barre :&nbsp;</div>
+                <div class="col-8">
+                    <input type="text" *ngIf="editMode" [(ngModel)]="item.barcode" />
+                    <span *ngIf="!editMode"> {{ item.barcode ? item.barcode : 'NC' }}</span>
+                </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 offset-md-9 text-right" *ngIf="!editMode">
+            <button class="btn btn-primary" (click)="switchToEditMode()">Éditer</button>
+        </div>
+        <div class="col-md-3 offset-md-6 text-right" *ngIf="editMode">
+            <button class="btn btn-secondary" (click)="cancel()">Annuler</button>
+        </div>
+        <div class="col-md-3 text-right" *ngIf="editMode">
+            <button class="btn btn-primary" (click)="save()">Sauver</button>
         </div>
     </div>
 </div>

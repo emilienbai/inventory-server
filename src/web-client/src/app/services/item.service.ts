@@ -22,4 +22,11 @@ export class ItemService {
         const rawItem = await this.http.post(Item.baseUrl, item.toJSON(), { withCredentials: true }).toPromise();
         return new Item(rawItem);
     }
+
+    public async update(item: Item): Promise<Item> {
+        const rawItem = await this.http
+            .put(`${Item.baseUrl}/${item.id}`, item.toJSON(), { withCredentials: true })
+            .toPromise();
+        return new Item(rawItem);
+    }
 }
