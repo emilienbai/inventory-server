@@ -84,7 +84,11 @@ export const ItemFactory = (sequelize: Sequelize): AssociableModel<Item, ItemAtt
         }
     };
 
-    const item = Item.init(attributes, { tableName: 'items', sequelize }) as AssociableModel<Item, ItemAttributes>;
+    const item = Item.init(attributes, {
+        tableName: 'items',
+        sequelize,
+        defaultScope: { include: [{ model: Author as any, as: 'author' }] }
+    }) as AssociableModel<Item, ItemAttributes>;
 
     item.associate = () => {
         Item.belongsTo(User, { foreignKey: 'creatorId', as: 'creator', onDelete: 'CASCADE' });

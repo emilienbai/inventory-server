@@ -29,8 +29,7 @@ export class ItemController implements IItemController {
             where: {
                 id: itemId,
                 creatorId: req.loggedInUser.id
-            },
-            include: [{ model: Author as any, as: 'author' }]
+            }
         });
         if (!item) {
             return res.status(404).send('Item does not exist');
