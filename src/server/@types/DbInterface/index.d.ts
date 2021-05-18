@@ -1,5 +1,6 @@
 import { Model, Sequelize } from 'sequelize';
 import { Author, AuthorAttributes } from '../../models/Author';
+import { File, FileAttribute } from '../../models/File';
 import { Item, ItemAttributes } from '../../models/Item';
 import { User, UserAttributes } from '../../models/User';
 
@@ -17,4 +18,5 @@ export interface DbInterface {
     Author: Model<Author, AuthorAttributes>;
     Item: Model<Item, ItemAttributes>;
     User: Model<User, UserAttributes>;
+    File: Model<File, FileAttribute>;
 }

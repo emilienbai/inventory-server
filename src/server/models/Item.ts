@@ -2,6 +2,7 @@ import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
 import { AssociableModel, IAssignable } from '../@types/DbInterface';
 import { SequelizeAttributes } from '../@types/SequelizeAttributes';
 import { Author } from './Author';
+import { File } from './File';
 import { User } from './User';
 
 export interface ItemAttributes {
@@ -12,6 +13,7 @@ export interface ItemAttributes {
     barcode?: string | null;
     authorId: number;
     creatorId: number;
+    thumbnailId?: number;
 
     createdAt?: Date;
     updatedAt?: Date;
@@ -27,6 +29,7 @@ export class Item
     public type!: 'book' | 'cd' | 'dvd';
     public year?: number | null;
     public barcode?: string | null;
+    public thumbnailId?: number;
 
     public authorId!: number;
     public creatorId!: number;
@@ -37,6 +40,7 @@ export class Item
 
     public readonly creator?: User | null;
     public readonly author?: Author | null;
+    public readonly thumbnail?: File | null;
 
     public assign(data: ItemAttributes): void {
         this.name = data.name ? data.name : this.name;
@@ -46,6 +50,7 @@ export class Item
         if (!this.authorId) {
             this.authorId = data.authorId;
         }
+        this.thumbnailId = data.thumbnailId ?? this.thumbnailId;
     }
 }
 
@@ -62,7 +67,7 @@ export const ItemFactory = (sequelize: Sequelize): AssociableModel<Item, ItemAtt
             allowNull: false
         },
         type: {
-            type: DataTypes.ENUM('book', 'cd', 'dvd', 'boardGame', 'videoGame '),
+            type: DataTypes.ENUM('book', 'cd', 'dvd', 'boardGame', 'videoGame'),
             unique: 'UniqueItemByCreatorAndType',
             allowNull: false
         },
@@ -81,18 +86,28 @@ export const ItemFactory = (sequelize: Sequelize): AssociableModel<Item, ItemAtt
         creatorId: {
             type: DataTypes.INTEGER,
             unique: 'UniqueItemByCreatorAndType'
+        },
+        thumbnailId: {
+            type: DataTypes.INTEGER,
+            allowNull: true
         }
     };
 
     const item = Item.init(attributes, {
         tableName: 'items',
         sequelize,
-        defaultScope: { include: [{ model: Author as any, as: 'author' }] }
+        defaultScope: {
+            include: [
+                { model: Author as any, as: 'author' },
+                { model: File as any, as: 'thumbnail' }
+            ]
+        }
     }) as AssociableModel<Item, ItemAttributes>;
 
     item.associate = () => {
         Item.belongsTo(User, { foreignKey: 'creatorId', as: 'creator', onDelete: 'CASCADE' });
         Item.belongsTo(Author, { foreignKey: 'authorId', as: 'author', onDelete: 'SET NULL' });
+        Item.belongsTo(File, { foreignKey: 'thumbnailId', as: 'thumbnail', onDelete: 'SET NULL' });
     };
 
     return item;

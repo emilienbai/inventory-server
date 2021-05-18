@@ -1,5 +1,6 @@
 import { faBook, faDice, faFilm, faGamepad, faMusic, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Author } from './Author';
+import { File } from './File';
 
 export class Item {
     public authorId: number;
@@ -12,6 +13,7 @@ export class Item {
     public updatedAt: Date;
     public year: number | null;
     public author?: Author;
+    public thumbnail?: File;
 
     public static readonly baseUrl: string = '/api/items';
     public static readonly types = ['book', 'cd', 'dvd', 'boardGame', 'videoGame'];
@@ -29,8 +31,12 @@ export class Item {
         this.barcode = data.barcode ? data.barcode : this.barcode;
         this.createdAt = data.createdAt ?? this.createdAt;
         this.updatedAt = data.updatedAt ?? this.updatedAt;
-        if ('author' in data) {
+        if ('author' in data && !!data.author) {
             this.author = new Author(data.author);
+        }
+
+        if ('thumbnail' in data && !!data.thumbnail) {
+            this.thumbnail = new File(data.thumbnail);
         }
     }
 

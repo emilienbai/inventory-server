@@ -4,6 +4,8 @@ import express from 'express';
 import passport from 'passport';
 import path from 'path';
 
+const fileUpload = require('express-fileupload');
+
 import { initializePassport } from './config/passport/passport';
 import { IRouter } from './interfaces';
 import { myContainer } from './inversify.config';
@@ -32,6 +34,7 @@ initializePassport(passport, User);
 
 // parse application/json
 app.use(bodyParser.json());
+app.use(fileUpload());
 
 const apiRouter = myContainer.get<IRouter>(TYPES.IIndexRouter);
 app.use('/api', apiRouter.getRoutes());
@@ -46,7 +49,7 @@ app.use(nonAPIRouter);
 const port = process.env.PORT ? parseInt(process.env.PORT as string) : 5000;
 const db = createModels();
 (async () => {
-    await db.sequelize.sync();
+    await db.sequelize.sync({ alter: { drop: false } });
     app.listen(port, () => {
         console.log(`Example app listening on port ${port}`);
     });

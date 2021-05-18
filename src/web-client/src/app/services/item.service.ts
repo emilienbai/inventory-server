@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Item } from '../models/Item';
 
 @Injectable({
@@ -28,5 +29,11 @@ export class ItemService {
             .put(`${Item.baseUrl}/${item.id}`, item.toJSON(), { withCredentials: true })
             .toPromise();
         return new Item(rawItem);
+    }
+
+    public async updateThumbnail(item: Item, formData: FormData): Promise<any> {
+        return await this.http
+            .post(`${Item.baseUrl}/${item.id}/thumbnail`, formData, { withCredentials: true })
+            .toPromise();
     }
 }

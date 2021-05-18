@@ -16,6 +16,8 @@ export class ItemDetailsComponent implements OnInit {
     public editMode: boolean;
     public isLoading: boolean;
 
+    public fileName = '';
+
     public constructor(private readonly itemService: ItemService, private readonly route: ActivatedRoute) {
         this.isLoading = true;
     }
@@ -46,5 +48,19 @@ export class ItemDetailsComponent implements OnInit {
         this.item = await this.itemService.update(this.item);
         this.editMode = false;
         this.originalItem = undefined;
+    }
+
+    public async onFileSelected(event): Promise<void> {
+        const file: File = event.target.files[0];
+
+        if (file) {
+            this.fileName = file.name;
+
+            const formData = new FormData();
+
+            formData.append('thumbnail', file);
+
+            this.item = await this.itemService.updateThumbnail(this.item, formData);
+        }
     }
 }

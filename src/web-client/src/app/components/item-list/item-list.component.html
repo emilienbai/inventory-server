@@ -6,17 +6,18 @@
         </div>
     </div>
     <div class="container row d-flex list-group-item" *ngFor="let item of itemList">
-        <div class="col-2">
+        <div class="col-2 d-flex align-items-center">
             <fa-icon [icon]="item.getIconDefinition()" size="2x"></fa-icon>
         </div>
-        <div class="col-7">
-            {{ item.name }}
+        <div class="row col-7">
+            <div class="col-12">{{ item.name }}</div>
+            <div class="col-12 font-weight-light">{{ item.author.name }}</div>
         </div>
-        <div class="container d-flex col-3 align-items-end">
-            <div class="col m-clickable">
+        <div class="container d-flex col-3">
+            <div class="col m-clickable text-right">
                 <fa-icon [icon]="faEdit" size="2x" [routerLink]="['/item', item.id]"></fa-icon>
             </div>
-            <div class="col m-clickable">
+            <div class="col m-clickable text-right">
                 <fa-icon [icon]="faTrash" size="2x"></fa-icon>
             </div>
         </div>
